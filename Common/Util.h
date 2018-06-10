@@ -17,7 +17,7 @@ namespace Utils
 
 #define OFFSETOF(s,m)        (((size_t)(&((s*)0x10)->m)) - 0x10)
 #define BUFFER_OFFSETOF(s,m) ((char *)nullptr + (offsetof(s,m)))
-#define MIN(a,b)             ((a)>(b)?(a):(b))
+#define MIN(a,b)             ((a)<(b)?(a):(b))
 #define ELEMENTSOF(a)        (sizeof(a)/(sizeof(a)[0]))
 #define ELEMENTSOF_2R(a)     (sizeof(a)/sizeof((a)[0]))
 #define ELEMENTSOF_2C(a)     (sizeof((a)[0])/sizeof((a)[0][0]))
