@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "slib/Container/Private/ObjectConstructor.h"
 #include <new>
 
 template <typename T, int maxSize>
@@ -18,12 +19,12 @@ struct FixedVector
     {
     }
     
-    T* Data()
+    inline T* Data()
     {
         return (T*)m_Raw;
     }
     
-    const T* Data() const
+    inline const T* Data() const
     {
         return (const T*)m_Raw;
     }
@@ -43,7 +44,7 @@ struct FixedVector
         if (m_Index == maxSize)
             return nullptr;
         T* ret = (T*)&m_Raw[m_Index++ * sizeof(T)];
-        new (ret) T();
+        ObjectConstructor<T, std::is_default_constructible<T>::value> o(ret);
         return ret;
     }
     
