@@ -78,7 +78,6 @@ public:
     inline SarIterator& operator ++()
     {
       const Segment& segment = m_Segments[m_SegmentItr];
-      // printf("index: %zu segment(%d): %zu %zu\n", m_Index, m_SegmentItr, segment.m_Start, segment.m_Endi);
       if (++m_Index >= segment.Count())
       {
         m_Index = 0;
@@ -101,8 +100,6 @@ public:
         index = segment.m_Endi - m_Index;
       }
 
-      // printf("returning m_SegmentItr: %d m_Index: %zu index: %zu\n", m_SegmentItr, m_Index, index);
-
       return m_Data[index];
     }
   };
@@ -119,7 +116,6 @@ public:
 
   T operator[](size_t index) const
   {
-#if 1
     int i=0;
     for (int n=m_Segments.Count(); i<n; ++i)
     {
@@ -131,14 +127,6 @@ public:
       index -= m_Segments[i].Count();
     }
     return *SarIterator(m_Data, i, index, m_Segments);
-#else
-    SarIterator i = begin();
-    while (index--)
-    {
-      ++i;
-    }
-    return *i;
-#endif
   }
 
   int segmentAt(size_t index) const
@@ -166,7 +154,6 @@ public:
       return;
     }
 
-    // printf("segment %d: start %zu end %zu count %zu \n", m_Segments.Count(), s.m_Start, s.m_Endi, s.Count());
     *m_Segments.Alloc() = s;
   }
 

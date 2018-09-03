@@ -280,14 +280,11 @@ public:
         const size_t offset = Count() - to_remove - 1;
         Alloc(num_elements);
 
-#if 1
+        // jiv fixme: memmove for POD types
         for (int i=offset; i>=0; --i)
         {
             (*this).operator[](index + i + num_elements) = (*this).operator[](index + i);
         }
-#else
-        memmove(Data() + index + num_elements, Data() + index, offset * sizeof(T));
-#endif
         
         T* values = Data() + index;
         for (auto v : rhs)
